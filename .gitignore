@@ -1,0 +1,25 @@
+# Compiled binaries & build output
+*.exe
+*.o
+*.obj
+*.pdb
+*.ilk
+bin/
+StockPricePredictor/bin/
+
+# Temporary & backup files
+*.old
+*.old*
+*.bak
+*.tmp
+* - Copy.*
+
+# OS generated files
+Thumbs.db
+[Dd]esktop.ini
+.DS_Store
+
+# VS Code local cache (keeps tasks.json tracked)
+.vscode/*.log
+.vscode/.browse.VC.db*
+
