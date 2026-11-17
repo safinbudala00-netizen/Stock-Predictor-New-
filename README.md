@@ -40,17 +40,15 @@ ALPHA STOCX PRO is a high-performance, native desktop financial analysis and alg
 
 ## Project Structure
 
-The project follows a clean, modular structure:
-
 ```text
 Stock-Predictor/
 ├── run.bat                                # Root one-click build and launch script
 ├── .gitignore                             # Git exclusion for binaries & temporary files
-├── README.md                              # Project documentation
+├── README.md                              # Complete step-by-step documentation
 ├── .vscode/
 │   └── tasks.json                         # VS Code build task configuration
 └── StockPricePredictor/
-    ├── run.bat                            # Local build and launch script
+    ├── run.bat                            # Subfolder build and launch script
     ├── include/                           # C++ Header files (.h)
     │   ├── CSVHandler.h                   # CSV data parser & loader
     │   ├── LinearRegression.h             # OLS regression forecasting model
@@ -78,50 +76,139 @@ Stock-Predictor/
 
 ---
 
-## Prerequisites
+## Prerequisites & Environment Setup
 
-- **Operating System**: Windows 10 or Windows 11 (64-bit recommended)
-- **Compiler**: GCC / MinGW-w64 with **C++17** support (`g++`)
-  - Standard MSYS2 / MinGW installation (e.g. `C:\msys64\ucrt64\bin` or `C:\MinGW\bin`).
-- **Dependencies**: Native Windows system libraries (pre-installed on all Windows systems):
-  - `gdiplus` (GDI+ 2D Graphics Engine)
-  - `gdi32` (Windows Graphics Device Interface)
-  - `dwmapi` (Desktop Window Manager for Dark Mode Titlebars)
+Before running the program, ensure your Windows machine meets the following requirements:
+
+### 1. System Requirements
+- **OS**: Windows 10 or Windows 11 (64-bit recommended).
+- **Libraries**: Native Windows libraries (`gdiplus`, `gdi32`, `dwmapi`) — **no installation required**, these are pre-installed on every modern Windows system.
+
+### 2. C++ Compiler (GCC / MinGW-w64 with C++17)
+You need a GCC C++ compiler (`g++`).
+
+#### How to check if you already have `g++`:
+Open Command Prompt or PowerShell and run:
+```cmd
+g++ --version
+```
+If you see version info (e.g., `g++ (Rev..., Built by MSYS2/MinGW...) 10.x` or higher), **you are ready to proceed to the running steps below**.
+
+#### If `g++` is not installed or not recognized:
+Choose one of the quick options below:
+- **Option A (Easiest - WinLibs standalone)**:
+  1. Download the latest GCC release zip from [WinLibs](https://winlibs.com/) (e.g. *UCRT runtime / POSIX threads / 64-bit*).
+  2. Extract it to `C:\MinGW` or `C:\mingw64`.
+  3. Add `C:\MinGW\bin` (or your chosen path) to your System Environment Variable `PATH`.
+- **Option B (MSYS2)**:
+  1. Download and install [MSYS2](https://www.msys2.org/).
+  2. In MSYS2 terminal, run: `pacman -S mingw-w64-ucrt-x86_64-gcc`
+  3. Add `C:\msys64\ucrt64\bin` to your Windows `PATH`.
 
 ---
 
-## Quick Start & Running
+## Step-by-Step Running Guide
 
-### Option 1: One-Click Launch (Recommended)
-Simply double-click **`run.bat`** in the project root.
-The script will:
-1. Automatically detect your MinGW / GCC compiler.
-2. Compile the project if the binary has not yet been built.
-3. Launch the desktop GUI immediately.
+Follow these simple steps to download, compile, and run the program from scratch:
 
-### Option 2: Visual Studio Code
-1. Open the `Stock-Predictor` folder in VS Code.
-2. Press **`Ctrl + Shift + B`** to trigger the default build task.
-3. Run `bin\StockPricePredictor.exe` or execute `.\run.bat`.
+### Step 1: Clone or Download the Repository
 
-### Option 3: Manual Command Line Build
-Open PowerShell or Command Prompt, navigate to the `StockPricePredictor` folder, and compile with `g++`:
-
+#### Via Git (Recommended):
+Open your terminal (PowerShell or Command Prompt) and run:
 ```cmd
-cd StockPricePredictor
-if not exist "bin" mkdir "bin"
-g++ -std=c++17 -Wall -Wextra -Iinclude src/main.cpp src/CSVHandler.cpp src/LinearRegression.cpp src/MovingAverage.cpp src/Portfolio.cpp src/Stock.cpp src/StockManager.cpp src/StockGUI.cpp -mwindows -lgdiplus -ldwmapi -o bin/StockPricePredictor.exe
+git clone https://github.com/safinbudala00-netizen/Stock-Predictor-New-.git
+cd Stock-Predictor-New-
 ```
 
-To run:
-```cmd
-bin\StockPricePredictor.exe
-```
+#### Via ZIP Download:
+1. Click the green **Code** button at the top of the GitHub repository page.
+2. Select **Download ZIP**.
+3. Extract the downloaded ZIP folder to your desired location (e.g., `C:\Projects\Stock-Predictor`).
+4. Open the extracted folder.
 
-To launch in CLI terminal mode:
-```cmd
-bin\StockPricePredictor.exe --cli
-```
+---
+
+### Step 2: Run the Program
+
+Choose whichever method you prefer:
+
+#### Method 1: One-Click Automated Run (Easiest & Recommended)
+1. Open the project root folder in File Explorer.
+2. **Double-click `run.bat`**.
+3. What happens automatically:
+   - The script detects your GCC/MinGW compiler (even if not yet permanently registered in your PATH).
+   - Creates the `bin/` directory if missing.
+   - Compiles the source files into `StockPricePredictor/bin/StockPricePredictor.exe`.
+   - Automatically launches the dark-themed desktop GUI!
+
+---
+
+#### Method 2: Manual Terminal / Command Line Build
+
+If you prefer building and running from PowerShell or Command Prompt:
+
+1. Open PowerShell or Command Prompt.
+2. Navigate into the `StockPricePredictor` directory:
+   ```cmd
+   cd StockPricePredictor
+   ```
+3. Create the `bin` folder (if it doesn't exist):
+   ```cmd
+   if not exist "bin" mkdir "bin"
+   ```
+4. Compile using `g++`:
+   ```cmd
+   g++ -std=c++17 -Wall -Wextra -Iinclude src/main.cpp src/CSVHandler.cpp src/LinearRegression.cpp src/MovingAverage.cpp src/Portfolio.cpp src/Stock.cpp src/StockManager.cpp src/StockGUI.cpp -mwindows -lgdiplus -ldwmapi -o bin/StockPricePredictor.exe
+   ```
+5. Launch the application:
+   - **For Desktop GUI Mode**:
+     ```cmd
+     bin\StockPricePredictor.exe
+     ```
+   - **For Terminal / Console Mode**:
+     ```cmd
+     bin\StockPricePredictor.exe --cli
+     ```
+
+---
+
+#### Method 3: Using Visual Studio Code
+
+1. Open VS Code and select **File > Open Folder...**, then select the project root folder.
+2. Install the **C/C++** extension (by Microsoft) if prompted.
+3. Press **`Ctrl + Shift + B`** (or go to **Terminal > Run Build Task...**) to compile.
+4. Once built, run the executable by:
+   - Double-clicking `run.bat`, or
+   - Running `.\StockPricePredictor\bin\StockPricePredictor.exe` in the integrated terminal.
+
+---
+
+## Dual-Mode Usage: GUI vs CLI
+
+| Mode | Command | Description |
+| :--- | :--- | :--- |
+| **Desktop GUI (Default)** | `StockPricePredictor.exe` or `run.bat` | High-DPI interactive dark dashboard with technical charts, tooltips, and portfolio controls. |
+| **Terminal / CLI Mode** | `StockPricePredictor.exe --cli` | Interactive terminal interface suitable for headless environments, scripts, or SSH sessions. |
+
+---
+
+## Troubleshooting & FAQ
+
+### 1. `'g++' is not recognized as an internal or external command`
+- **Cause**: The compiler is either not installed or its `bin` folder is not added to your Windows environment variables (`PATH`).
+- **Fix**:
+  1. Press `Win + R`, type `sysdm.cpl`, press Enter, and navigate to **Advanced > Environment Variables**.
+  2. Under **User variables** or **System variables**, select `Path` and click **Edit**.
+  3. Click **New** and add the path to your MinGW or MSYS2 bin folder (e.g. `C:\msys64\ucrt64\bin` or `C:\MinGW\bin`).
+  4. Restart your Command Prompt / terminal and verify with `g++ --version`.
+  *Note*: The included `run.bat` already checks common installation paths (`C:\msys64\ucrt64\bin` and `C:\MinGW\bin`) automatically.
+
+### 2. Windows Defender / SmartScreen warns about an unrecognized app
+- **Cause**: Because you compiled the `.exe` directly on your machine from C++ source, it does not have a paid commercial code-signing certificate.
+- **Fix**: Click **More info** and then click **Run anyway**. The entire source code is 100% open, transparent, and built locally on your machine.
+
+### 3. "No stock data loaded" error
+- Ensure you do not delete the `StockPricePredictor/data/stocks.csv` file. The program automatically checks `data/stocks.csv`, `StockPricePredictor/data/stocks.csv`, and sibling paths, but the file must remain present.
 
 ---
 
@@ -151,4 +238,3 @@ Fits a first-order linear trend equation ($y = mx + c$) across historical sessio
 Pull requests and feature suggestions are welcome! Feel free to open an issue or submit a PR to expand technical indicators, add multi-day projections, or connect live REST market feeds.
 
 Licensed under the [MIT License](LICENSE).
-
